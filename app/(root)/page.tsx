@@ -1,12 +1,18 @@
+import React from "react"
 import NavBar from "@/components/home/navbar"
+import Products from "@/app/notes/page"
+
 
 export default function Home(){
     return(
         <>
             <NavBar></NavBar>
-            <body className="text-white bg-blue-900 absolute w-full h-full">
-                
-            </body>
+
+            <div className="text-white bg-blue-900 absolute w-full h-full">
+                <div className="grid grid-cols-4 gap-4">
+                    <Products></Products>
+                </div>
+            </div>
         </>
     )
 }
