@@ -6,7 +6,7 @@ import { CiUser } from "react-icons/ci";
 
 export default function NavBar(){
     return(
-        <Navbar className="bg-slate-900 text-slate-50">
+        <Navbar className="bg-slate-900 text-slate-50 w-full m-0 p-0">
             <NavbarBrand>
                 <Image src="/imgs/logo.png" alt="logo.png" width={50} height={50}></Image>
             </NavbarBrand>
