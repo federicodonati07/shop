@@ -8,6 +8,8 @@ export default function CardTSX({ index, title, desc, price, discount, image, st
   const nprice = price - sub;
   const rnprice = nprice.toFixed(2);
 
+  const rprice = price.toFixed(2)
+
 
   return (
     <Link href={`/product?uuid=${uuid}`} className="m-0">
@@ -25,12 +27,14 @@ export default function CardTSX({ index, title, desc, price, discount, image, st
         <CardFooter className="text-small flex flex-col sm:flex sm:flex-row sm:justify-between">
           <div className="flex flex-col text-left">
             <b>{title}</b>
-            <span className="hidden sm:block text-tiny mr-4">{desc}</span>
+            <div className="sm:h-20 sm:w-50 break-words overflow-auto m-2">
+              <span className="hidden sm:block text-tiny mr-4">{desc}</span>
+            </div>
           </div>
           <div className="flex flex-col items-end">
             {discount !== 0 ? (
               <>
-                  <s className="text-default-500">€{price}</s>
+                  <s className="text-default-500">€{rprice}</s>
                   <p className="bg-green-900 text-white p-1 rounded tracking-widest font-number">
                       <b>€{rnprice}</b>
                   </p>
@@ -40,7 +44,7 @@ export default function CardTSX({ index, title, desc, price, discount, image, st
                   </p>
               </>
             ):(
-              <p className="bg-green-900 text-white p-1 rounded tracking-widest font-number"><b>€{price}</b></p>
+              <p className="bg-green-900 text-white p-1 rounded tracking-widest font-number"><b>€{rprice}</b></p>
             )}
           </div>
         </CardFooter>

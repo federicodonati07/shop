@@ -23,16 +23,24 @@ const SingleProductPage = function() {
 
         if (uuid) {
             fetchProduct();
+        }else if(uuid == undefined || uuid == null || uuid == ""){
+            window.location.href = "/"
         }
     }, [uuid]);
 
-    if (!product) {
+    if(!product) {
         return( 
             <div className='flex flex-row items-center justify-center'>
                 <CircularProgress color="danger" label="Loading..." className='text-white text-2xl'/>
             </div>
         )
     }
+
+    const sub = (product.price * product.discount) / 100;
+    const nprice = product.price - sub;
+    const rnprice = nprice.toFixed(2);
+
+    const rprice = product.price.toFixed(2)
 
     return (
         <>
@@ -43,7 +51,7 @@ const SingleProductPage = function() {
                         <IoReturnDownBackOutline className='transition-all duration-500 text-4xl border rounded-full cursor-pointer hover:bg-white hover:text-blue-900'/>
                     </div>
                 </Link>
-                <div className='grid grid-cols-2 gap-4'>
+                <div className='flex flex-col items-center justify-center sm:grid sm:grid-cols-2 sm:gap-2 lg:grid-cols-3'>
                     <div className="containerImageCorrelate mt-20 ml-2">
                         <Card isFooterBlurred className="w-full h-[300px] col-span-12 sm:col-span-5">
                             <CardHeader className="absolute z-10 top-1 flex-col items-start">
@@ -52,16 +60,15 @@ const SingleProductPage = function() {
                             <Image
                                 removeWrapper
                                 alt={product.title}
-                                className="z-0 object-cover"
+                                className="z-0 object-cover w-full h-full lg:w-500 lg:h-500"
                                 src={product.image_src}
                             />
                             <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                                <div>
-                                <p className="text-black text-tiny">Available soon.</p>
-                                <p className="text-black text-tiny">Get notified.</p>
-                                </div>
+                                <Button className="text-tiny text-white" color="warning" radius="full" size="sm">
+                                    Add to cart
+                                </Button>
                                 <Button className="text-tiny" color="primary" radius="full" size="sm">
-                                    Notify Me
+                                    Buy
                                 </Button>
                             </CardFooter>
                         </Card>
