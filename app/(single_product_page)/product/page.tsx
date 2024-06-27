@@ -11,20 +11,20 @@ import {Card, CardHeader, CardBody, CardFooter, Image, Button} from "@nextui-org
 
 const SingleProductPage = function() {
     const searchParams = useSearchParams();
-    const id = searchParams.get("id");
+    const uuid = searchParams.get("uuid");
 
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
         async function fetchProduct() {
-            const productData = await SingleProductPageLogic({ id });
+            const productData = await SingleProductPageLogic({ uuid });
             setProduct(productData);
         }
 
-        if (id) {
+        if (uuid) {
             fetchProduct();
         }
-    }, [id]);
+    }, [uuid]);
 
     if (!product) {
         return( 

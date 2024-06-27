@@ -3,14 +3,14 @@ import { RiDiscountPercentFill } from "react-icons/ri";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function CardTSX({ index, title, desc, price, discount, image }) {
+export default function CardTSX({ index, title, desc, price, discount, image, stripe_url, uuid }) {
   const sub = (price * discount) / 100;
   const nprice = price - sub;
   const rnprice = nprice.toFixed(2);
 
 
   return (
-    <Link href={`/product?id=${index}`} className="m-0">
+    <Link href={`/product?uuid=${uuid}`} className="m-0">
       <Card shadow="sm" isPressable className="bg-slate-900 text-white m-4">
         <CardBody className="overflow-visible p-0">
           <Image

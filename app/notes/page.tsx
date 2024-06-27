@@ -20,6 +20,8 @@ export default async function Products(){
                     "price":product.price,
                     "discount":product.discount,
                     "image":product.image_src,
+                    "stripe_url":product.stripe_url,
+                    "uuid":product.uuid
                 }
 
                 return(
@@ -30,6 +32,8 @@ export default async function Products(){
                     price={collect.price}
                     discount={collect.discount}
                     image={collect.image}
+                    stripe_url={collect.stripe_url}
+                    uuid={collect.uuid}
                     ></CardTSX>
                 )
             })}
