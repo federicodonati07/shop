@@ -1,16 +1,28 @@
 'use client'
-import React from 'react';
-import { Input, Button, Pagination, Select, SelectItem } from '@nextui-org/react';
+import React, { useState } from 'react';
+import { Input, Button, Pagination } from '@nextui-org/react';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
-import CountrySelector from '@/components/access/selectNationsCities';
+import Form from './thirdPageSingup';
+import CountrySelector from './secondPageSignup';
 
-export default function SignUp() {
-    const [value, setValue] = React.useState('');
-    const [valuePsw, setValuePsw] = React.useState('');
-    const [isVisible, setIsVisible] = React.useState(false);
-    const [currentPage, setCurrentPage] = React.useState(1);
-    const [animating, setAnimating] = React.useState(false);
-    const [animationClass, setAnimationClass] = React.useState('fade-enter');
+const SignUp = () => {
+    const [value, setValue] = useState('');
+    const [valuePsw, setValuePsw] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [animating, setAnimating] = useState(false);
+    const [animationClass, setAnimationClass] = useState('fade-enter');
+
+    const [selectValue, setSelectValue] = useState("");
+    const [inputValue, setInputValue] = useState("");
+    const [inputAddressValue, setInputAddressValue] = useState("");
+    const [inputCodeValue, setInputCodeValue] = useState("");
+    const [inputCivicValue, setInputCivicValue] = useState("");
+
+    const [inputNameValue, setInputNameValue] = useState("");
+    const [inputSurnameValue, setInputSurnameValue] = useState("");
+    const [inputPrefixValue, setInputPrefixValue] = useState("");
+    const [inputPhoneNumberValue, setInputPhoneNumberValue] = useState("");
 
     const validateEmail = (value) => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
     const validatePsw = (valuePsw) => valuePsw.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/);
@@ -19,6 +31,42 @@ export default function SignUp() {
     const isInvalidPsw = React.useMemo(() => validatePsw(valuePsw) ? false : true, [valuePsw]);
 
     const toggleVisibility = () => setIsVisible(!isVisible);
+
+    const handleSelectChange = (value) => {
+        setSelectValue(value);
+    };
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
+
+    const handleInputAddressChange = (event) => {
+        setInputAddressValue(event.target.value);
+    };
+
+    const handleInputCodeChange = (event) => {
+        setInputCodeValue(event.target.value);
+    };
+
+    const handleInputCivicChange = (event) => {
+        setInputCivicValue(event.target.value);
+    };
+
+    const handleInputNameChange = (event) => {
+        setInputNameValue(event.target.value);
+    };
+
+    const handleInputSurnameChange = (event) => {
+        setInputSurnameValue(event.target.value);
+    };
+
+    const handleInputPrefixChange = (event) => {
+        setInputPrefixValue(event.target.value);
+    };
+
+    const handleInputPhoneNumberChange = (event) => {
+        setInputPhoneNumberValue(event.target.value);
+    };
 
     const handlePageChange = (page) => {
         setAnimating(true);
@@ -33,7 +81,7 @@ export default function SignUp() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-xl bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-4 text-center">Sign-Up</h2>
+                <h2 className="text-2xl font-bold mb-4 text-center">Sign-Up {currentPage === 1 ? "Credential Info" : currentPage === 2 ? "Spediction Info" : "Other Info"}</h2>
                 <div className={`mt-4 ${animating ? animationClass : ''}`}>
                     {currentPage === 1 && (
                         <>
@@ -59,6 +107,7 @@ export default function SignUp() {
                                     color={isInvalidPsw ? 'danger' : 'success'}
                                     errorMessage="Password must be at least 8 characters long, include uppercase, lowercase, number, and special character"
                                     onValueChange={setValuePsw}
+                                    isRequired
                                     endContent={
                                         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
                                             {isVisible ? (
@@ -74,13 +123,40 @@ export default function SignUp() {
                     )}
                     {currentPage === 2 && (
                         <div className="mt-4 flex flex-col gap-4">
-                            <CountrySelector></CountrySelector>
+                            <CountrySelector
+                                selectValue={selectValue}
+                                handleSelectChange={handleSelectChange}
+                                inputValue={inputValue}
+                                handleInputChange={handleInputChange}
+                                inputAddressValue={inputAddressValue}
+                                handleInputAddressChange={handleInputAddressChange}
+                                inputCodeValue={inputCodeValue}
+                                handleInputCodeChange={handleInputCodeChange}
+                                inputCivicValue={inputCivicValue}
+                                handleInputCivicChange={handleInputCivicChange}
+                            />
                         </div>
+                    )}
+                    {currentPage === 3 && (
+                        <>
+                            <div className="mt-4 flex flex-col gap-4">
+                                <Form
+                                    inputNameValue={inputNameValue}
+                                    handleInputNameChange={handleInputNameChange}
+                                    inputSurnameValue={inputSurnameValue}
+                                    handleInputSurnameChange={handleInputSurnameChange}
+                                    inputPrefixValue={inputPrefixValue}
+                                    handleInputPrefixChange={handleInputPrefixChange}
+                                    inputPhoneNumberValue={inputPhoneNumberValue}
+                                    handleInputPhoneNumberChange={handleInputPhoneNumberChange}
+                                />
+                            </div>
+                        </>
                     )}
                 </div>
                 <div className="flex flex-col md:flex-row justify-center mt-8 md:gap-8 md:items-center">
                     <Pagination
-                        total={2}
+                        total={3}
                         color="primary"
                         page={currentPage}
                         onChange={handlePageChange}
@@ -98,7 +174,7 @@ export default function SignUp() {
                             size="sm"
                             variant="flat"
                             color="primary"
-                            onPress={() => handlePageChange(currentPage < 2 ? currentPage + 1 : 2)}
+                            onPress={() => handlePageChange(currentPage < 3 ? currentPage + 1 : 2)}
                         >
                             Next
                         </Button>
@@ -108,3 +184,5 @@ export default function SignUp() {
         </div>
     );
 }
+
+export default SignUp;
