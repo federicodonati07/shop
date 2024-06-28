@@ -19,7 +19,7 @@ export default function NavBar(){
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <Button as={Link} color="primary" href="/access" variant="flat" className="flex flex-row">
+                    <Button as={Link} color="primary" href="/access/" variant="flat" className="flex flex-row">
                         <CiUser className="text-2xl font-bold"/>
                         <span className="text-tiny text-slate-50">Account</span>
                     </Button>

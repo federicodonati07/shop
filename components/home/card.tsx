@@ -13,7 +13,7 @@ export default function CardTSX({ index, title, desc, price, discount, image, st
 
   return (
     <Link href={`/product?uuid=${uuid}`} className="m-0">
-      <Card shadow="sm" isPressable className="bg-slate-900 text-white m-4">
+      <Card shadow="sm" isPressable className="bg-slate-900 text-white m-2">
         <CardBody className="overflow-visible p-0">
           <Image
             shadow="sm"
